@@ -16,7 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2)->nullable();
+            $table->decimal('price2', 8, 2)->nullable();
+            $table->decimal('price3', 8, 2)->nullable();            
             $table->string('image')->nullable();
+            $table->boolean('disponible')->nullable();
+            $table->decimal('quantity')->nullable();
+            $table->string('tag')->nullable();
+            $table->string('tag2')->nullable();
+            $table->string('tag3')->nullable();
             $table->timestamps();
         });
         

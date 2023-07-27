@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('communes', function (Blueprint $table) {
             $table->id();
-            $table->string('size');
-            $table->text('description')->nullable();
-            $table->unsignedInteger('sort_order')->default(0);
+            $table->string('matricule')->nullable();
+            $table->string('nom');
+            $table->foreignId('wilaya_id')->nullable()->constrained('wilayas');
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('communes');
     }
 };

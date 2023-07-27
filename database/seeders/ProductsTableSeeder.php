@@ -14,10 +14,11 @@ class ProductsTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('products')->insert([
-            'name' => "polo",
-            'description' => "polo",
+            'name' => "polo1",
+            'description' => "polo 1 mache longue",
             'price' => "5000",
-            'category_id' => "1",
+            'category_id' => 2,
+            'brand_id' => 1,
         ]);
 
     }

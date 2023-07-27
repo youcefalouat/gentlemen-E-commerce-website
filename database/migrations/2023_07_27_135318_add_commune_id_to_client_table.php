@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_sizes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('size_id')->constrained('sizes');
-            $table->timestamps();
+        Schema::table('clients', function (Blueprint $table) {
+            $table->foreignId('ccommunes_id')->constrained('communes')->nullable();
         });
-        
     }
 
     /**
@@ -25,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_sizes');
+        Schema::table('clients', function (Blueprint $table) {
+            $table->dropForeign(['communes_id']);
+            $table->dropColumn('communes_id');
+        });
     }
 };

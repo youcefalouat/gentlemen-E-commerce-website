@@ -18,6 +18,14 @@
             <li>{{ $color->name }}</li>
         @endforeach
     </ul>
+    
+    @foreach ($product->colors as $color)
+    <h3>{{ $color->name }}</h3>
+    @foreach ($product->sizes as $size)
+        <p>{{ $size->name }} - Quantity: {{ $product->pivot->quantity }}</p>
+    @endforeach
+    @endforeach
+
 
     <!-- Additional product details and actions -->
 @endsection

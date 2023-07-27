@@ -148,18 +148,37 @@
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-              <ul class="navbar-nav">
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Catégory</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Marque</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">A propos de nous</a>
-                </li>
-              </ul>
-          </div>
+        <ul class="navbar-nav">
+            <!-- Categories Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Categories
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                    @foreach($categories as $category)
+                        <li><a class="dropdown-item" href="#">{{ $category->name }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+
+            <!-- Brands Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="brandsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Brands
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="brandsDropdown">
+                    @foreach($brands as $brand)
+                        <li><a class="dropdown-item" href="#">{{ $brand->name }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+
+            <!-- Other Menu Items -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">A propos de nous</a>
+            </li>
+        </ul>
+    </div>
       </nav>
   </header>
 
