@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    protected $fillable = ['name', 'email','adresse','telephone', 'password'];
+    protected $fillable = ['name', 'email','adresse','telephone', 'password','commune_id'];
 
     protected $hidden = ['password'];
 
@@ -24,5 +24,10 @@ class Client extends Model
     public function wishlist()
     {
         return $this->belongsToMany(Product::class, 'wishlists');
+    }
+
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class);
     }
 }

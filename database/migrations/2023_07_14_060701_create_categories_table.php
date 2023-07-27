@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('active')->default(true); // To indicate whether the category is currently active or not
+            $table->unsignedBigInteger('parent_id')->nullable(); // To establish a hierarchical relationship between categories
+            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
         

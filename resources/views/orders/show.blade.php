@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('home')
 
 @section('content')
     <h1>Order {{ $order->id }}</h1>
