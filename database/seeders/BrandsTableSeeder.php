@@ -13,7 +13,7 @@ class BrandsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('Brands')->insert([
+        DB::table('brands')->insert([
             'name' => "Ralph Lauren",
         ]);
     }

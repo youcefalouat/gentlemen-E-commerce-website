@@ -36,10 +36,23 @@ return [
     */
 
     'guards' => [
+        // Default web guard (used for regular users)
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
+    
+       /* // Admin guard
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users', // You can use the 'users' provider for admin users.
+        ],
+    
+        // Client guard
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'users', // You can use the 'users' provider for client users.
+        ],*/
     ],
 
     /*
@@ -64,6 +77,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        
 
         // 'users' => [
         //     'driver' => 'database',
@@ -107,7 +121,7 @@ return [
     | Here you may define the amount of seconds before a password confirmation
     | times out and the user is prompted to re-enter their password via the
     | confirmation screen. By default, the timeout lasts for three hours.
-    |
+        |
     */
 
     'password_timeout' => 10800,

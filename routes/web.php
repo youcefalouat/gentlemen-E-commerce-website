@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Shop\MainController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Shop\MainController;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });*/
-Route::get('/','App\Http\Controllers\Shop\MainController@index');
+Route::middleware('guest')->group(function () {
+    // Routes that non-authenticated users can access.
+    Route::get('/shop','App\Http\Controllers\Shop\MainController@index');
+
+    // Additional routes for guests...
+});
+
+
+//Admin Routes
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Admin-only routes here...
+});
+
+//Client Routes
+Route::middleware(['auth', 'client'])->group(function () {
+    // Client-only routes here...
+});
+
+
 //Product Routes
 Route::get('/products', 'App\Http\Controllers\ProductController@index');
 Route::get('/products/create',  'App\Http\Controllers\ProductController@create');
@@ -44,3 +64,7 @@ Route::get('/orders/{orders}', 'App\Http\Controllers\OrderController@show')->nam
 Route::get('/orders/{orders}/edit', 'App\Http\Controllers\OrderController@edit')->name('orders.edit');
 Route::put('/orders/{orders}', 'App\Http\Controllers\OrderController@update')->name('orders.update');
 Route::delete('/orders/{orders}', 'App\Http\Controllers\OrderController@destroy')->name('orders.destroy');
+
+Auth::routes();
+
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');

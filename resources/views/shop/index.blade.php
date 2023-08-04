@@ -1,8 +1,8 @@
-@extends('home')
+@extends('welcome')
 @section('content')
 
 <div class="album py-5 bg-body-tertiary">
-
+    <strong>Produits</strong>
     <div class="container">
       <div class="row">
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->nullable()->constrained('clients');
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('status');
             $table->decimal('total_amount', 8, 2);
             $table->text('shipping_address');

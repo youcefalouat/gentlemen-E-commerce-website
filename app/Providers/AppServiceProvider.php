@@ -20,6 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer('home', HeaderComposer::class);
+        view()->composer('welcome', HeaderComposer::class);
     }
 }
