@@ -1,4 +1,4 @@
-@extends('home')
+@extends('layouts.app')
 
 @section('content')
     <h1>Create a New Product</h1>
