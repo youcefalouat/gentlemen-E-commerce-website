@@ -17,5 +17,18 @@ class CategoryController extends Controller
     {
         return view('categories.show', compact('category'));
     }
+
+    public function getSizesByCategory($categoryId)
+    {
+        $category = Category::find($categoryId);
+        
+        if (!$category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
+
+        $sizes = $category->sizes;
+        
+        return response()->json(['sizes' => $sizes]);
+    }
 }
 

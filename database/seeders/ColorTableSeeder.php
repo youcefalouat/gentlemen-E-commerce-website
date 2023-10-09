@@ -18,7 +18,6 @@ class ColorTableSeeder extends Seeder
         ]);
         DB::table('colors')->insert([
             'name' => "NOIR",
-            'code' =>
         ]);
         DB::table('colors')->insert([
             'name' => "GRIS",
@@ -37,6 +36,27 @@ class ColorTableSeeder extends Seeder
         ]);
         DB::table('colors')->insert([
             'name' => "BORDO",
+        ]);
+        DB::table('colors')->insert([
+            'name' => "VERT",
+        ]);
+        DB::table('colors')->insert([
+            'name' => "BEIGE",
+        ]);
+        DB::table('colors')->insert([
+            'name' => "MOUTARD",
+        ]);
+        DB::table('colors')->insert([
+            'name' => "ROSE",
+        ]);
+        DB::table('colors')->insert([
+            'name' => "ROUGE",
+        ]);
+        DB::table('colors')->insert([
+            'name' => "MARRON",
+        ]);
+        DB::table('colors')->insert([
+            'name' => "TABA",
         ]);
     }
 }

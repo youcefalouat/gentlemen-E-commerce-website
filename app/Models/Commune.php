@@ -17,6 +17,6 @@ class Commune extends Model
     }
 
     function clients() {
-        return $this->hasMany(Client::class);
+        return $this->hasMany(User::class);
     }
 }

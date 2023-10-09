@@ -16,5 +16,8 @@ class BrandsTableSeeder extends Seeder
         DB::table('brands')->insert([
             'name' => "Ralph Lauren",
         ]);
+        DB::table('brands')->insert([
+            'name' => "Tommy Hilfiger",
+        ]);
     }
 }

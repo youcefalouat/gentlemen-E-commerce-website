@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('communes_id')->constrained('communes')->nullable();
+            // Make the foreign key column nullable
+            $table->foreignId('communes_id')->nullable()->change();
         });
     }
 
@@ -22,8 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['communes_id']);
-            $table->dropColumn('communes_id');
+            $table->foreignId('communes_id')->nullable(false)->change();
         });
     }
 };

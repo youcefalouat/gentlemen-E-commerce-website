@@ -17,5 +17,6 @@ class Category extends Model
     {
         return $this->belongsToMany(Size::class, 'category_sizes');
     }
+    
 }
 
