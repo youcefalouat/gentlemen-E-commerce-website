@@ -3,7 +3,7 @@
 
 <div class="album py-5 bg-body-tertiary">
     <br><br>
-    <center><strong>Produits</strong></center> 
+    <center><h2>Nouveautés</h2></center> 
     <div class="container">
       <div class="row">
         @if (count($products) == 0)

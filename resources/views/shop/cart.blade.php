@@ -8,11 +8,11 @@
                 <table id="cart" class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Color</th>
-                            <th>Size</th>
-                            <th>Quantity</th>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Couleur</th>
+                            <th>Taille</th>
+                            <th>Quantité</th>
                             <th>Total</th>
                             <th></th>
                         </tr>
@@ -51,7 +51,9 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" class="text-right"></td>
+                            <td colspan="5" class="text-right" >
+                                <p class="mt-3" id="livraison"></p>
+                            </td>
                         </tr>
                     </tfoot>
                 </table>
@@ -59,9 +61,9 @@
         </div>
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Checkout</div>
+                <div class="card-header">Veuillez entré vos coordonnées</div>
                 <div class="card-body">
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{ route('checkout')    }}">
                         @csrf
                         <!-- Your checkout form fields here -->
                         <div class="mb-3">
@@ -114,8 +116,9 @@
                                 </span>
                             @enderror
                         </div>
+                        <input type="hidden" id="shippingPrice" name="shipping_price" value="">
                         <div class="mb-3 text-center">
-                            <button type="submit" class="btn btn-primary">Checkout</button>
+                            <button type="submit" class="btn btn-primary">Envoyer la commande</button>
                         </div>
                     </form>
                 </div>
@@ -208,25 +211,32 @@ function updateCart(quantityInput) {
     });
     document.getElementById('wilaya').addEventListener('change', function() {
     var wilayaId = this.value;
-    fetch(`/gentlemen/public/get-communes/${wilayaId}`)
+    fetch("{{ route('getcommunes', '') }}/" + wilayaId)
         .then(response => response.json())
-        .then(communes => {
-            var communeSelect = document.getElementById('commune');
-            communeSelect.innerHTML = '<option value="">Select a commune</option>';
-            communes.forEach(commune => {
-                var option = document.createElement('option');
-                option.value = commune.id;
-                option.textContent = commune.nom;
-                communeSelect.appendChild(option);
-            });
-            // Set the selected commune ID in the hidden input field
-            var selectedCommuneInput = document.getElementById('selectedCommune');
-            if (communes.length > 0) {
-                selectedCommuneInput.value = communes[0].id; // Set the first commune ID as default
-            } else {
-                selectedCommuneInput.value = ''; // Reset the value if no communes available
-            }
+        .then(communesAndLivraison => {
+        var communeSelect = document.getElementById('commune');
+        communeSelect.innerHTML = '<option value="">Selectionner une commune</option>';
+        communesAndLivraison.communes.forEach(commune => {
+            var option = document.createElement('option');
+            option.value = commune.id;
+            option.textContent = commune.nom;
+            communeSelect.appendChild(option);
         });
+
+        // Set the selected commune ID in the hidden input field
+        var selectedCommuneInput = document.getElementById('selectedCommune');
+        if (communesAndLivraison.communes.length > 0) {
+            selectedCommuneInput.value = communesAndLivraison.communes[0].id; // Set the first commune ID as default
+        } else {
+            selectedCommuneInput.value = ''; // Reset the value if no communes available
+        }
+
+        // Display the shipping price
+        const livraisonprice = document.getElementById("livraison");
+        livraisonprice.textContent = `Prix de livraison: ${communesAndLivraison.livraison} DA`;
+        const shippingPriceInput = document.getElementById("shippingPrice");
+        shippingPriceInput.value = communesAndLivraison.livraison;
+    });
 });
 </script>
 @endsection

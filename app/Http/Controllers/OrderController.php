@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -10,54 +11,47 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::all();
-        return view('orders.index', compact('orders'));
-    }
-    public function create()
-    {
-        return view('orders.create');
-    }
-
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required|numeric',
-        ]);
-
-        Order::create($validatedData);
-
-        return redirect('/orders')->with('success', 'order created successfully.');
+        return view('admin.orders.index', compact('orders'));
     }
 
     public function show(Order $order)
     {
-        return view('orders.show', compact('order'));
+        return view('admin.orders.show', compact('order'));
     }
 
     public function edit(Order $order)
     {
-        return view('products.edit', compact('product'));
+        return view('admin.orders.edit', compact('order'));
     }
 
     public function update(Request $request, Order $order)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required|numeric',
+        $request->validate([
+            'status' => 'required|in:Commandé,Confirmé,Livrés à la sociéte,Livrés au client,Retour,Annuler',
+            'payement_status' => 'required|in:non payées,payées'
+        ]);
+    
+        // Find the order by ID
+        $order = Order::findOrFail($order->id);
+    
+        // Update the order's status
+        $order->update([
+            'status' => $request->input('status'),
+            'payement_status' => $request->input('payement_status'),
         ]);
 
-        $order->update($validatedData);
-
-        return redirect('/orders')->with('success', 'order updated successfully.');
+        return redirect()->route('orders.index')->with('success', 'Commande mis a jour avec succés.');
     }
 
     public function destroy(Order $order)
     {
+        $orderItems = OrderItem::where('order_id', $order->id)->get();
+        foreach ($orderItems as $item) {
+            $item->delete();
+        }
         $order->delete();
 
-        return redirect('/orders')->with('success', 'order deleted successfully.');
+        return redirect()->route('orders.index')->with('success', 'Commande supprimer avec succés.');
     }
 
 }

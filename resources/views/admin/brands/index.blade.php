@@ -10,32 +10,23 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-    <h1>Commande</h1>
+    <h1>Marques</h1>
+    <td><a href="{{ route('brands.create') }}" class="btn btn-primary">Introduire une marque</a></td>
 
-    <table id="ordersTable" class="table table-striped table-hover table-bordered">
+    <table id="brandsTable" class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
-                <th>No Commande</th>
-                <th>Nom Client</th>
-                <th>Wilaya</th>
-                <th>Telephone client</th>
-                <th>Etat de la commande</th>
+                <th>Nom</th>
                 <th>Actions</th>
                 <!-- Add more columns here as needed -->
             </tr>
         </thead>
         <tbody>
-            @foreach($orders as $order)
+            @foreach($brands as $brand)
                 <tr>
-                    <td><a href="{{ route('orders.show', $order) }}">Commande {{ $order->id }}</a></td>
-                    <td>{{ $order->nom }} {{ $order->prenom }}</td>
-                    <td>{{ $order->wilaya->nom }}</td>
-                    <td>{{ $order->telephone }}</td>
-                    <td>{{ $order->status }}</td>
+                    <td>{{ $brand->name }}</td>
                     <td>
-                        <a href="{{ route('orders.show', $order) }}" class="btn btn-info" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                        <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline;">
+                        <form action="{{ route('brands.destroy', $brand->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" title="Delete" data-toggle="tooltip" onclick="return confirm('Are you sure you want to delete this product?')">
@@ -51,7 +42,7 @@
     
     <script>
         $(document).ready(function() {
-            $('#ordersTable').DataTable();
+            $('#brandsTable').DataTable();
         });
     </script>
 @endsection

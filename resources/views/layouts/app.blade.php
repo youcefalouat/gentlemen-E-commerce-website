@@ -7,14 +7,25 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Gentleman</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+ <link rel="shortcut icon" href="karimg.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+   <link href="{{ asset('Gentleman_files/bootstrap.min.css') }}" rel="stylesheet">
+   <link href="{{ asset('Gentleman_files/all.min.css') }}" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
 </head>
 <body>
     <div id="app">
@@ -31,7 +42,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -40,7 +51,6 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <!--<a class="nav-link" href="">Se connecter</a>-->
                                     <a class="btn btn-outline-primary px-4" href="{{ route('login') }}">Se connecter</a>                                    
                                 </li>
 
@@ -48,19 +58,16 @@
 
                             
                         @else
-                            
                         <li class="nav-item">
-                            <!--<a class="nav-link" href="">Se connecter</a>-->
-                            <a class="btn btn-outline-primary px-4" href="#">Dashboard</a>                                    
-                        </li>
+                            <a class="btn btn-outline-primary px-4" href="{{route('dashboard')}}">Dashboard</a>                                    
+                        </li>                            
+                        
 
                         <li class="nav-item">
-                            <!--<a class="nav-link" href="">Se connecter</a>-->
                             <a class="btn btn-outline-primary px-4" href="{{ route('products.index') }}">Produits</a>                                    
                         </li>
 
                         <li class="nav-item">
-                            <!--<a class="nav-link" href="">Se connecter</a>-->
                             <a class="btn btn-outline-primary px-4" href="{{ route('orders.index') }}">Commande</a>                                    
                         </li>
 

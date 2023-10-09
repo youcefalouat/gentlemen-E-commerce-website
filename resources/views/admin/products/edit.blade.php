@@ -29,6 +29,29 @@
             <input type="file" name="image" id="image" class="form-control" accept="image/*">
         </div> 
 
+        <!-- Color and Photo Fields -->
+        <div class="form-group" id="color-fields">
+            <label for="colors">Colors</label>
+            @foreach($product->photos as $photo)
+            <div class="color-entry">
+                <div style="display: flex; align-items: center;">
+                    <select style="width: 20%;" name="color_ids[]" class="form-control">
+                        <option value="">Select a color</option>
+                        @foreach($colors as $colorOption)
+                        <option value="{{ $colorOption->id }}" {{ $photo->color_id == $colorOption->id ? 'selected' : '' }}>
+                            {{ $colorOption->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                    <input type="file" name="color_images[]" class="form-control" accept="image/*">
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <button type="button" id="add-color" class="btn btn-success">Add Color</button>
+
+
         <div class="form-group">
             <label for="price">Price</label>
             <input type="number" name="price" id="price" class="form-control" value="{{ $product->price }}" step="1" required>
@@ -61,8 +84,16 @@
 @endsection
 
 @section('after-scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // JavaScript logic for fetching and updating sizes dropdown based on selected category
-    // This part of the script can remain the same as your create view
+    jQuery(document).ready(function ($) {
+    // Now you can safely use $ within this function
+    $("#add-color").click(function () {
+        var newColorEntry = $(".color-entry:first").clone();
+        newColorEntry.find("select").val(""); // Clear select values
+        newColorEntry.find("input").val(""); // Clear input values
+        $("#color-fields").append(newColorEntry);
+    });
+});
 </script>
 @endsection

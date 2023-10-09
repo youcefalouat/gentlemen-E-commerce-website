@@ -30,6 +30,9 @@ Route::middleware('guest')->group(function () {
 //Admin Routes
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     // Admin-only routes here...
+Route::get('/', 'App\Http\Controllers\Controller@dashboard')->name('dashboard');
+Route::get('/dashboard', 'App\Http\Controllers\Controller@dashboard')->name('dashboard');
+Route::get('/dashboard/chart', 'App\Http\Controllers\Controller@getChartData')->name('chart');
     //Product Routes
 Route::get('/products', 'App\Http\Controllers\ProductController@index')->name('products.index');
 Route::get('/products/create',  'App\Http\Controllers\ProductController@create')->name('products.create');
@@ -43,10 +46,27 @@ Route::get('/get-sizes/{category}','App\Http\Controllers\CategoryController@getS
 Route::get('/get-products','App\Http\Controllers\ProductStockController@getProducts');
 Route::get('/get-sizes','App\Http\Controllers\ProductStockController@getSizes');
 
-Route::get('/stock',  'App\Http\Controllers\ProductStockController@create');
+Route::get('/stock/create',  'App\Http\Controllers\ProductStockController@create')->name('stock.create');
 Route::get('/products/{product}/stock', 'App\Http\Controllers\ProductStockController@edit')->name('stock.edit');
 Route::put('/products/{product}/stock', 'App\Http\Controllers\ProductStockController@updateStock')->name('stock.update');
 Route::post('/stock', 'App\Http\Controllers\ProductStockController@store');
+
+
+//Order Routes
+Route::get('/orders', 'App\Http\Controllers\OrderController@index')->name('orders.index');
+Route::get('/orders/{order}', 'App\Http\Controllers\OrderController@show')->name('orders.show');
+//Route::get('/orders/create', 'App\Http\Controllers\OrderController@create')->name('orders.create');
+//Route::post('/orders', 'App\Http\Controllers\OrderController@store')->name('orders.store');
+Route::get('/orders/{order}/edit', 'App\Http\Controllers\OrderController@edit')->name('orders.edit');
+Route::put('/orders/{order}', 'App\Http\Controllers\OrderController@update')->name('orders.update');
+Route::delete('/orders/{order}', 'App\Http\Controllers\OrderController@destroy')->name('orders.destroy');
+
+//brand Routes
+Route::get('/brands', 'App\Http\Controllers\BrandController@index')->name('brands.index');
+Route::get('/brands/create',  'App\Http\Controllers\BrandController@create')->name('brands.create');
+Route::post('/brands', 'App\Http\Controllers\BrandController@store')->name('brands.store');
+Route::delete('/brands/{brand}', 'App\Http\Controllers\BrandController@destroy')->name('brands.destroy');
+
 });
 
 //Client Routes
@@ -65,19 +85,12 @@ Route::get('/clients/{client}/edit', 'App\Http\Controllers\ClientController@edit
 Route::put('/clients/{client}', 'App\Http\Controllers\ClientController@update')->name('clients.update');
 Route::delete('/clients/{client}', 'App\Http\Controllers\ClientController@destroy')->name('clients.destroy');
 
-//Order Routes
-Route::get('/order', 'App\Http\Controllers\OrderController@index')->name('orders.index');
-Route::get('/orders/create', 'App\Http\Controllers\OrderController@create')->name('orders.create');
-Route::post('/orders', 'App\Http\Controllers\OrderController@store')->name('orders.store');
-Route::get('/orders/{orders}', 'App\Http\Controllers\OrderController@show')->name('orders.show');
-Route::get('/orders/{orders}/edit', 'App\Http\Controllers\OrderController@edit')->name('orders.edit');
-Route::put('/orders/{orders}', 'App\Http\Controllers\OrderController@update')->name('orders.update');
-Route::delete('/orders/{orders}', 'App\Http\Controllers\OrderController@destroy')->name('orders.destroy');
 
 Auth::routes();
 // routes/web.php
 Route::post('/logout', 'App\Http\Controllers\Auth\LogoutController@logout')->name('logout');
 Route::get('/shop','App\Http\Controllers\Shop\MainController@index')->name('shop.index');
+Route::get('/','App\Http\Controllers\Shop\MainController@index')->name('shop.index');
 Route::get('/shop/category/{category}', 'App\Http\Controllers\Shop\MainController@filterByCategory')->name('shop.filter.category');
 Route::get('/shop/marques/{brand}', 'App\Http\Controllers\Shop\MainController@filterByBrand')->name('shop.filter.brand');
 Route::get('/shop/{product}','App\Http\Controllers\Shop\MainController@show')->name('shop.show');
@@ -90,8 +103,8 @@ Route::post('/cart/product/add/{product}', 'App\Http\Controllers\Shop\MainContro
 Route::patch('/update-shopping-cart', 'App\Http\Controllers\Shop\MainController@updateCart')->name('update.cart');
 Route::delete('/delete-cart-product', 'App\Http\Controllers\Shop\MainController@deleteCart')->name('delete.cart.product');
 
-Route::get('/get-communes/{wilaya}', 'App\Http\Controllers\Shop\CheckoutController@getCommunes');
-
+Route::get('/get-communes/{wilaya}', 'App\Http\Controllers\Shop\CheckoutController@getCommunes')->name('getcommunes');
+Route::post('/checkout','App\Http\Controllers\Shop\CheckoutController@createOrder')->name('checkout');
 //Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 

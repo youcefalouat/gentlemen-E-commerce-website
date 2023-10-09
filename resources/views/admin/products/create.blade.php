@@ -27,10 +27,29 @@
             <label for="image">Product Image</label>
             <input type="file" name="image" id="image" class="form-control" accept="image/*" required>
         </div>        
+        <!-- Color and Photo Fields -->
+        <div class="form-group" id="color-fields">
+            <label for="colors">Colors</label>
+            <div class="color-entry">
+                <div style="display: flex; align-items: center;">
+                    <select style="width: 20%;" name="color_ids[]" class="form-control" required>
+                        <option value="">Selectionner une couleur</option>
+                        @foreach($colors as $color)
+                            <option value="{{ $color->id }}">{{ $color->name }}</option>
+                        @endforeach
+                    </select>
+                    <input type="file" name="color_images[]" class="form-control" accept="image/*" required>
+                </div>
+            </div>
+        </div>
+        
+
+        <button type="button" id="add-color" class="btn btn-success">Add Color</button>
+
 
         <div class="form-group">
             <label for="price">Price</label>
-            <input type="number" name="price" id="price" class="form-control" step="0.01" required>
+            <input type="number" name="price" id="price" class="form-control" step="1" required>
         </div>
 
         <div class="form-group">
@@ -59,4 +78,16 @@
     </form>
 @endsection
 @section('after-scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+    // Now you can safely use $ within this function
+    $("#add-color").click(function () {
+        var newColorEntry = $(".color-entry:first").clone();
+        newColorEntry.find("select").val(""); // Clear select values
+        newColorEntry.find("input").val(""); // Clear input values
+        $("#color-fields").append(newColorEntry);
+    });
+});
+</script>
 @endsection

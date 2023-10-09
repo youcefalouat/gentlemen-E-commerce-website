@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Size;
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Size;
-use App\Models\Color;
+use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,8 @@ class ProductController extends Controller
     {   
         $categories = Category::all();
         $brands = Brand::all();
-        return view('admin.products.create', compact('categories','brands'));
+        $colors = Color::all();
+        return view('admin.products.create', compact('categories','brands','colors'));
     }
     
 
@@ -36,6 +38,10 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
+            'color_ids' => 'required|array',
+            'color_ids.*' => 'required|exists:colors,id',
+            'color_images' => 'required|array',
+            'color_images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('product_images', 'public');
@@ -53,12 +59,29 @@ class ProductController extends Controller
         $product->brand()->associate($validatedData['brand_id']);
         $product->save();
 
-        return redirect()->back()->with('success', 'Product created successfully.');
+        // Save color photos
+    $colors = $validatedData['color_ids'];
+    $colorImages = $validatedData['color_images'];
+
+    $now = now(); // Get the current date and time
+    $dateString = $now->format('d/m/Y'); // Format it as 'day/month/year'
+
+    foreach ($colors as $key => $colorId) {
+        $imageName = "{$product->name}_{$product->id}_{$colorId}_{$dateString}.jpg";
+        $colorPhoto = new ProductPhoto();
+        $colorPhoto->product_id = $product->id;
+        $colorPhoto->color_id = $colorId;
+        $colorPhoto->image = $colorImages[$key]->storeAs("product_images/{$product->id}",$imageName, 'public');
+        $colorPhoto->save();
+    }
+
+        return redirect()->back()->with('success', 'Produit crée avec succés.');
     }
 
     public function show(Product $product)
     {
         $products = Product::with('sizes')->get();
+        
         return view('admin.products.show', compact('product'));
     }
 
@@ -66,11 +89,13 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('admin.products.edit', compact('product','categories','brands'));
+        $colors = Color::all();
+        return view('admin.products.edit', compact('product','categories','brands','colors'));
     }
 
     public function updateProduct(Request $request, Product $product)
     {
+
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -85,6 +110,7 @@ class ProductController extends Controller
             $imagePath = $request->file('image')->store('product_images', 'public');
             $validatedData['image'] = $imagePath;
         }
+        
 
         $product->update([
             'name' => $validatedData['name'],
@@ -95,13 +121,17 @@ class ProductController extends Controller
             'brand_id' => $validatedData['brand_id'],
         ]);
         
-        return redirect()->back()->with('success', 'Product updated successfully.');
+        return redirect()->back()->with('success', 'Produit éditée.');
     }
 
     public function destroy(Product $product)
     {
+        $productPhotos = ProductPhoto::where('product_id', $product->id)->get();
+        foreach ($productPhotos as $photo) {
+            $photo->delete();
+        }
         $product->delete();
 
-        return redirect()->back()->with('success', 'Product deleted successfully.');
+        return redirect()->route('products.index')->with('success', 'Produit supprimée.');
     }
 }

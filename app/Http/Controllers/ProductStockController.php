@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Size;
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Size;
-use App\Models\Color;
+use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductStockController extends Controller
 {
@@ -35,7 +37,7 @@ class ProductStockController extends Controller
         // Attach the data to the pivot table
         $product->colors()->syncWithoutDetaching([$validatedData['color_id'] => ['size_id' => $validatedData['size_id'], 'quantity' => $validatedData['quantity']]]);
         
-        return redirect()->back()->with('success', 'quantity updated successfully.');
+        return redirect()->back()->with('success', 'quantité mis a jour avec succés.');
     }
 
     public function getProducts(Request $request)
@@ -63,7 +65,10 @@ class ProductStockController extends Controller
     {
         $category = Category::find($product->category_id);
         $sizes = $category->sizes;
-        $colors = Color::all();
+        $colorsProduct = DB::table('product_photos')
+                            ->where('product_id', $product->id)
+                            ->pluck('color_id');
+        $colors = Color::find($colorsProduct);
         return view('admin.products.stockProduit', compact('product','sizes','colors'));
     }
 
@@ -75,21 +80,28 @@ class ProductStockController extends Controller
             'quantity' => 'required|numeric',
         ]);
     
-        
-    $existingColorSizeCombination = $product->colors()->wherePivot('color_id', $validatedData['color_id'])
-                                    ->wherePivot('size_id', $validatedData['size_id'])
-                                    ->first();
-    if (!$existingColorSizeCombination) {
-        $product->colors()->attach($validatedData['color_id'], [
-        'size_id' => $validatedData['size_id'],
-        'quantity' => $validatedData['quantity'],
-        ]);
-    } else {
-        $existingColorSizeCombination->pivot->quantity = $validatedData['quantity'];
-        $existingColorSizeCombination->pivot->save();
-    }
-
-      
+        // Find the existing color/size combination for the product
+        $existingColorSizeCombination = $product->colors()
+            ->wherePivot('color_id', $validatedData['color_id'])
+            ->wherePivot('size_id', $validatedData['size_id'])
+            ->first();
+        if (!$existingColorSizeCombination) {
+            // If the combination doesn't exist, create it
+            $product->colors()->attach($validatedData['color_id'], [
+                'size_id' => $validatedData['size_id'],
+                'quantity' => $validatedData['quantity'],
+            ]);
+        } else {
+            // If the combination exists, update its quantity
+            DB::table('product_colors_sizes')
+                ->where('product_id', $existingColorSizeCombination->pivot->product_id)
+                ->where('color_id', $existingColorSizeCombination->pivot->color_id)
+                ->where('size_id', $existingColorSizeCombination->pivot->size_id)
+                ->update(['quantity' => $validatedData['quantity']]);
+           // $existingColorSizeCombination->pivot->quantity = $validatedData['quantity'];
+           // $existingColorSizeCombination->pivot->save();
+        }
+          
         // Update the pivot data for the specific color and size
        /* $product->colors()->syncWithoutDetaching([
             $validatedData['color_id'] => [
@@ -98,7 +110,7 @@ class ProductStockController extends Controller
             ]
         ]);*/
     
-        return redirect()->route('products.show', $product)->with('success', 'Product color and size updated successfully.');
+        return redirect()->back()->with('success', 'quantité mis a jour avec succés.');
     }
     
 }

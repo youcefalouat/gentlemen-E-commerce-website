@@ -6,79 +6,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Gentleman</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Quattrocento&display=swap" rel="stylesheet">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+ <!-- Fonts -->
+ <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Quattrocento&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+
+ <!-- Font Awesome -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 
+ <!-- Bootstrap 5 CSS (including Bootstrap icons) -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <!-- Your Custom Styles -->
+ <link href="{{ asset('Gentleman_files/bootstrap.min.css') }}" rel="stylesheet">
+ <link href="{{ asset('Gentleman_files/all.min.css') }}" rel="stylesheet">
+
+ <!-- Bootstrap 5 JavaScript (with Popper.js) -->
+ <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>-->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
-  <link rel="shortcut icon" href="karimg.png" type="image/png">
+ <!-- jQuery (required for Bootstrap) -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+ <link rel="shortcut icon" href="karimg.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
  
-
-  <link href="{{asset('Gentleman_files/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<!--
   <link rel="stylesheet" href="{{asset('Gentleman_files/bootstrap.min(1).css')}}">
   <link rel="stylesheet" href="{{asset('Gentleman_files/all.min.css')}}" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <script src="{{asset('Gentleman_files/bootstrap.bundle.min.js.téléchargement')}}" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <link href="{{asset('Gentleman_files/bootstrap.min(2).css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('Gentleman_files/font-awesome.min.css')}}"> 
-    <script src="{{asset('Gentleman_files/jquery.min.js.téléchargement')}}"></script>
-
+    <script src="{{asset('Gentleman_files/jquery.min.js.téléchargement')}}"></script>-->
   <style>
-   @media (max-width: 400px) {
-        .col-md-4 {
-            display: block;
-            width: 50%;
-            
-            /* Add margin to separate the cards */
-        }
-
-        .special-img {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px; /* Set the same height as in desktop */
-        }
-    }
-@media (max-width: 768px) {
-        .col-md-4 {
-            display: block;
-            width: 50%;
-            
-            /* Add margin to separate the cards */
-        }
-
-        .special-img {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px; /* Set the same height as in desktop */
-        }
-    }
-
-    @media (max-width: 1200px) {
-       
-
-        .special-img {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px; /* Set the same height as in desktop */
-        }
-    }
-
+  
     /* special */
 .special-img span{
     top: 200px;
@@ -175,7 +142,7 @@
             padding: 12px 16px;
             text-decoration: none;
             display: block;
-            color: #333;
+            color: #966F33;
             font-family: 'Roboto', sans-serif; 
         }
 
@@ -256,6 +223,44 @@ h1, h2, h3, h4, h5, h6 {
             text-decoration: none;
     }  
 
+@media (max-width: 768px) {
+  .navbar-brand {
+    top: 0px;
+  }
+        .col-md-4 {
+            display: block;
+            width: 50%;
+            
+            /* Add margin to separate the cards */
+        }
+
+        .special-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px; /* Set the same height as in desktop */
+        }
+    }
+
+@media (max-width: 400px) {
+  .navbar-brand {
+    top: 0px;
+  }
+        .col-md-4 {
+            display: block;
+            width: 50%;
+            
+            /* Add margin to separate the cards */
+        }
+
+        .special-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px; /* Set the same height as in desktop */
+        }
+    }    
+
   </style>
 
 </head>
@@ -264,17 +269,17 @@ h1, h2, h3, h4, h5, h6 {
   <nav class="navbar navbar-custom navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{route('shop.index')}}">
-        <img src="{{asset('Gentleman_files/logo1.png')}}" alt="Logo" width="115" height="115" style="margin-right: -10px;"> <!-- Ajoutez un espace à droite du logo -->
-        <span style="vertical-align: middle;">Gentlemen</span> <!-- Utilisez la propriété "vertical-align" pour aligner le texte verticalement avec le logo -->
+        <img src="{{asset('Gentleman_files/logo1.png')}}" alt="Logo" width="60" height="60" style="margin-right: -10px;"> <!-- Ajoutez un espace à droite du logo -->
+        <span style="vertical-align: middle;">Gentleman</span> <!-- Utilisez la propriété "vertical-align" pour aligner le texte verticalement avec le logo -->
     </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"><i class="fas fa-bars fa-1x"></i></span>
+        <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            
+          <li class="nav-item">    
             <div class="dropdown">
               <a class="menu-item" href="#">Catégories </a>
               <div class="dropdown-content">
@@ -288,14 +293,14 @@ h1, h2, h3, h4, h5, h6 {
                               <a class="menu-item" href="{{ route('shop.filter.category', $childcategory) }}">{{ $childcategory->name }}</a>
                             @endif
                           @endforeach 
-                        </div>
-                        
+                        </div>        
                   </div>
                   @endif
                 @endforeach
               </div>
           </div>
-
+          </li>
+          <li class="nav-item">  
           <div class="dropdown">
             <a class="menu-item" href="#">Marques </a>
             <div class="dropdown-content">
@@ -304,12 +309,10 @@ h1, h2, h3, h4, h5, h6 {
               @endforeach
             </div>
           </div>
-          
+          </li>  
 
         </ul>
-        <a href="{{ route('shopping.cart') }}" class="nav-link">
-          <i class="fas fa-shopping-cart"><span class="badge bg-danger">{{ count((array) session('cart')) }}</span></i>
-        </a>
+        
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">
@@ -317,6 +320,9 @@ h1, h2, h3, h4, h5, h6 {
           </button>
         </form>
       </div>
+      <a href="{{ route('shopping.cart') }}" class="nav-link">
+        <i class="fas fa-shopping-cart"><span class="badge bg-danger">{{ count((array) session('cart')) }}</span></i>
+      </a>
     </div>
   </nav>
 
@@ -327,7 +333,7 @@ h1, h2, h3, h4, h5, h6 {
     </div>
 @endif
 @if($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" style="padding-top: 50px;>
         <ul>
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -339,7 +345,7 @@ h1, h2, h3, h4, h5, h6 {
 </main>
 
   <div class="jumbotron text-center" style="background-color: #E2C799;">
-    <h1>Welcome to Gentleman</h1>
+    <h1>Bienvenue a la boutique Gentleman</h1>
     <p>Discover the latest fashion trends.</p>
     <a href="{{route('shop.index')}}" class="btn btn-primary">Shop Now</a>
   </div>
@@ -348,7 +354,7 @@ h1, h2, h3, h4, h5, h6 {
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h4>Contact Us</h4>
+                <h4>Contact-Nous</h4>
                 <address>
                     Gentleman<br>
                     00 rue les frère abd slami<br>
@@ -358,10 +364,10 @@ h1, h2, h3, h4, h5, h6 {
                 </address>
             </div>
             <div class="col-md-4">
-                <h4>Opening Hours</h4>
+                <h4>Heures d'ouverture</h4>
                 <ul>
-                    <li>Saturday - Thursday: 9:00 AM - 10:00 PM</li>
-                    <li>Friday: Closed</li>
+                    <li>Samedi - Jeudi: 10:00 - 21:00</li>
+                    <li>Vendredi: Fermé</li>
                 </ul>
             </div>
             <div class="col-md-4">

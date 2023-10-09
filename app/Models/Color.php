@@ -21,5 +21,6 @@ class Color extends Model
                     ->withPivot('product_id', 'quantity')
                     ->wherePivot('product_id', $this->pivot->product_id);
     }
+
 }
 
